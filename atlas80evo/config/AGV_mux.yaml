@@ -1,0 +1,63 @@
+# Individual subscriber configuration:
+#   name:           Source name
+#   topic:          The topic that provides twist_cmd messages
+#   timeout:        Time in seconds without incoming messages to consider this topic inactive
+#   priority:       Priority: an UNIQUE unsigned integer from 0 (lowest) to MAX_INT 
+#   short_desc:     Short description (optional)
+
+subscribers:
+  - name:        "EStop"
+    topic:       "input/estop"
+    timeout:     0.2
+    priority:    100
+    short_desc:  "Input for estop vehicle. Highest priority."
+
+  - name:        "Suspend/Resume"
+    topic:       "input/suspend"
+    timeout:     0.2
+    priority:    90
+    short_desc:  "Input for suspend/resume vehicle. 2nd priority."
+
+  - name:        "Teleoperation"
+    topic:       "input/teleop"
+    timeout:     0.2
+    priority:    80
+    short_desc:  "Input for human teleoperation (joystick). 3rd priority."
+
+  - name:        "Safety - Obstacle"
+    topic:       "input/safety/obstacle"
+    timeout:     0.2
+    priority:    70
+    short_desc:  "Input for obstacle safety monitor. 4th priority"
+
+  - name:        "Safety - Health"
+    topic:       "input/safety/health"
+    timeout:     0.2
+    priority:    70
+    short_desc:  "Input for health safety monitor. 5th priority"
+
+  - name:        "Stopping"
+    topic:       "input/stop"
+    timeout:     0.2
+    priority:    60
+    short_desc:  "Input for stopping. 6th priority"
+
+  - name:        "Turning"
+    topic:       "input/turn"
+    timeout:     0.2
+    priority:    50
+    short_desc:  "Input for turning. 7th priority"
+
+  - name:        "Autonomous Drive"
+    topic:       "input/autonomous"
+    timeout:     0.2
+    priority:    40
+    short_desc:  "Input for autonomous navigation. 8th priority"
+
+  - name:        "Default"
+    topic:       "input/default"
+    timeout:     0.2
+    priority:    0
+    short_desc:  "Input for Default. Lowest priority"
+
+publisher:       "output"

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="ira_laser_tools" type="pointcloud_transform" name="pointcloud_transform">
+<!--  <node pkg="ira_laser_tools" type="filtered_pointcloud_transform" name="filtered_pointcloud_transform"> -->
+    <param name="out_frame" value="base_link"/>
+    <param name="advertise_cloud" value="/laser_3d/points"/>
+    <param name="subscribe_cloud" value="/os1_cloud_node/points"/>
+  </node>
+
+</launch>

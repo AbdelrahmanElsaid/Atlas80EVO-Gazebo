@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="gazebo" default="true"/>
+
+  <arg name="3d_laser" default="true"/>
+  <arg name="2d_laser" default="true"/>
+  <arg name="camera"   default="true"/>
+  <arg name="imu"      default="true"/>
+  <arg name="odometry" default="true"/>
+
+  <!-- For Real Autonomous Mobile Robot (AMR) USE -->
+  <group unless="$(arg gazebo)">
+    <!-- Low-Level COM -->
+    <node pkg="low_level_handler" type="low_level_handler" name="low_level_handler"/>
+    <node pkg="low_level_handler" type="low_level_decoder.py" name="low_level_decoder"/>
+    <!-- Lifter -->
+    <node pkg="lifter_handler" type="lifter_handler.py" name="lifter_handler"/>
+    <!-- LED Handler -->
+    <node pkg="led_handler" type="led_handler_v2.py" name="led_handler_v2"/>
+    <!-- Static TF2 -->
+    <include file="$(find atlas80evo)/launch/static_tf2.launch">
+      <arg name="3d_laser" value="$(arg 3d_laser)"/>
+      <arg name="2d_laser" value="$(arg 2d_laser)"/>
+      <arg name="camera"   value="$(arg camera)"/>
+      <arg name="imu"      value="$(arg imu)"/>
+    </include>
+    <!-- Sensors -->
+    <include file="$(find atlas80evo)/launch/sensors.launch">
+      <arg name="3d_laser" value="$(arg 3d_laser)"/>
+      <arg name="2d_laser" value="$(arg 2d_laser)"/>
+      <arg name="camera"   value="$(arg camera)"/>
+      <arg name="imu"      value="$(arg imu)"/>
+    </include>
+    <!-- Odometry -->
+    <group if="$(arg odometry)">
+      <include file="$(find atlas80evo)/launch/odometry.launch">
+        <arg name="wheel_odometry" value="true"/>
+        <arg name="gyro_odometry"  value="true"/>
+        <arg name="rl_odometry"    value="false"/>
+      </include>
+    </group>
+  </group>
+
+  <!-- For Gazebo USE -->
+  <group if="$(arg gazebo)">
+    <remap from="/odom" to="/wheel/odom"/>
+    <remap from="/mobile_base_controller/cmd_vel" to="/cmd_vel"/>
+    <!-- Gyro Odometry -->
+    <include file="$(find gyro_odometry)/launch/gyro_odom.launch">
+      <arg name="output_topic" value="/gyro/odom"/>
+      <arg name="odom_topic"   value="/wheel/odom"/>
+      <arg name="imu_topic"    value="/imu/data_raw"/>
+      <arg name="parent_frame" value="odom"/>
+      <arg name="child_frame"  value="base_link"/>
+      <arg name="publish_tf"   value="true"/>
+    </include>
+    <!-- 2D Laser Merger -->
+    <group ns="laser_2d" if="$(arg 2d_laser)">
+      <include file="$(find atlas80evo)/launch/2d_lasers.launch"/>
+    </group>
+    <!-- Battery Simulator -->
+
+  </group>
+
+
+  <!-- Velocity Smoother -->
+  <include file="$(find atlas80evo)/launch/velocity_smoother.launch">
+    <arg name="config_file"          value="$(find atlas80evo)/config/velocity_smoother.yaml"/>
+    <arg name="raw_cmd_vel_topic"    value="/twist_cmd_mux/output"/>
+    <arg name="smooth_cmd_vel_topic" value="/cmd_vel"/>
+    <arg name="robot_cmd_vel_topic"  value="/feedback_cmd_vel"/>
+    <arg name="odom_topic"           value="/gyro/odom"/>
+  </include>
+
+  <!-- Twist Cmd Mux -->
+  <include file="$(find atlas80evo)/launch/twist_cmd_mux.launch">
+    <arg name="config_file" value="$(find atlas80evo)/config/AGV_mux.yaml"/>
+  </include>
+
+  <!-- Manual Override -->
+  <node pkg="manual_override" type="manual_override_v3.py" name="manual_override_v3" output="screen"/>
+
+  <!-- Battery Monitoring -->
+  <include file="$(find battery_monitoring)/launch/v36_battery_monitoring_v2_2.launch"/>
+
+  <!-- Suspend/Resume Handler -->
+  <node pkg="suspend_resume" type="suspend_resume_handler_v4.py" name="suspend_resume_handler_v4"/>
+
+  <!-- Rosbag Recording -->
+  <node pkg="rosbag_recording" type="rosbag_recording_v3.py" name="rosbag_recording_v3" output="screen">
+    <param name="save_path" value="/home/$(env USER)/Desktop/bagfiles"/>
+  </node>
+
+  <!-- Sound Player -->
+  <node pkg="sound_player" type="sound_player.py" name="sound_player" output="screen"/>
+
+  <!-- Snapshot -->
+  <node pkg="snapshot" type="snapshot_v2.py" name="snapshot_v2">
+    <param name="video_topic"   value="/camera/color/image_raw"/>
+    <param name="report_to_web" value="true"/>
+    <param name="save_path"     value="/home/$(env USER)/Desktop/obstacles"/>
+  </node>
+
+  <!-- FSM State Machine -->
+  <include file="$(find fsm)/launch/fsm_node.launch">
+    <arg name="config_file" value="$(find atlas80evo)/config/fsm_state.yaml"/>
+  </include>
+
+  <!-- F710 Joystick Controller -->
+  <include file="$(find f710_teleop)/launch/f710_teleop.launch">
+    <arg name="joy_teleop_config" value="$(find atlas80evo)/config/joy_teleop.yaml"/>
+  </include>
+
+</launch>

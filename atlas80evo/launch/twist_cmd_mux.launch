@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="config_file" default="$(find atlas80evo)/config/AGV_mux.yaml"/>
+
+  <!-- Twist Mux -->
+  <include file="$(find twist_cmd_mux)/launch/standalone.launch">
+    <arg name="nodelet_manager_name" value="twist_cmd_mux_nodelet_manager"/>
+    <arg name="config_file" value="$(arg config_file)"/>
+  </include>
+
+  <!-- default (zero) twist command for Twist MUX -->
+  <node pkg="rostopic" type="rostopic" name="zero_twist_cmd" args="pub -r 20 /twist_cmd_mux/input/default geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}'"/>
+
+</launch>

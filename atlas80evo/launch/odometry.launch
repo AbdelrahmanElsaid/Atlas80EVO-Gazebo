@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="wheel_odometry" default="true"/>
+  <arg name="gyro_odometry" default="false"/>
+  <arg name="rl_odometry" default="false"/>
+
+  <!-- Wheel Odometry -->
+  <group if="$(arg wheel_odometry)">
+    <include file="$(find wheel_odometry)/launch/wheel_odom_xspd_rotspd.launch">
+      <arg name="odom_frame" value="odom"/>
+      <arg name="base_frame" value="base_link"/>
+      <arg name="output_topic" value="/wheel/odom"/>
+      <arg name="publish_tf" value="false"/>
+    </include>
+  </group>
+
+  <!-- Gyro Odometry -->
+  <group if="$(arg gyro_odometry)">
+    <include file="$(find gyro_odometry)/launch/gyro_odom.launch">
+      <arg name="output_topic" value="/gyro/odom"/>
+      <arg name="odom_topic" value="/wheel/odom"/>
+      <arg name="imu_topic" value="/imu/data_raw"/>
+      <arg name="parent_frame" value="odom"/>
+      <arg name="child_frame" value="base_link"/>
+      <arg name="publish_tf" value="true"/>
+    </include>
+  </group>
+
+  <!-- Robot Localization Odometry -->
+  <group if="$(arg rl_odometry)">
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+      <rosparam command="load" file="$(find atlas80evo)/config/ekf_localization.yaml"/>
+    </node>
+  </group>
+
+</launch>

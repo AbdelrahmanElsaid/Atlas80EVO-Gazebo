@@ -1,0 +1,15 @@
+# Initial State of the FSM
+initial_state: "STANDBY"
+
+states:
+  SUSPEND
+  CHARGING
+  DELIVERY
+  TABLE_PICKING
+  TABLE_DROPPING
+  MANUAL
+  STANDBY
+  ERROR
+  NONE
+  TRANSITION
+  ESTOP

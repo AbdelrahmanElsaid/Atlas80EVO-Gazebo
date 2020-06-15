@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="3d_laser" default="true"/>
+  <arg name="2d_laser" default="true"/>
+  <arg name="camera" default="false"/>
+  <arg name="imu" default="true"/>
+
+  <!-- 3D Laser -->
+  <group if="$(arg 3d_laser)">
+    <include file="$(find ouster_ros)/launch/os1.launch">
+      <arg name="os1_hostname" value="os1-991933000022.local"/> <!-- os1-991922000554.local | os1-991924000206.local | os1-991933000022.local -->
+      <arg name="os1_udp_dest" value="192.168.1.111"/>
+      <arg name="lidar_mode" value="2048x10"/> <!-- 1024x10 | 2048x10 | 1024x20 -->
+    </include>
+    <!-- Pointcloud Frame Transformer -->
+    <include file="$(find atlas80evo)/launch/3d_laser.launch"/>
+  </group>
+
+  <!-- 2D Laser -->
+  <group if="$(arg 2d_laser)" ns="laser_2d">
+    <!-- Front Left -->
+    <group ns="front_left">
+      <node pkg="pepperl_fuchs_r2000" type="r2000_node" name="r2000_node">
+        <param name="frame_id" value="front_left_2d"/>
+        <param name="scanner_ip" value="192.168.1.11"/>
+        <param name="scan_frequency" value="20"/>
+        <param name="samples_per_scan" value="4200"/> <!-- 4200 x 20 -->
+        <remap from="r2000_node/scan" to="scan"/>
+      </node>
+    </group>
+    <!-- Rear Right -->
+    <group ns="rear_right">
+      <node pkg="pepperl_fuchs_r2000" type="r2000_node" name="r2000_node">
+        <param name="frame_id" value="rear_right_2d"/>
+        <param name="scanner_ip" value="192.168.1.10"/>
+        <param name="scan_frequency" value="20"/>
+        <param name="samples_per_scan" value="4200"/> <!-- 4200 x 20 -->
+        <remap from="r2000_node/scan" to="scan"/>
+      </node>
+    </group>
+    <!-- FOV Narrower & Scan Merger(2D only) -->
+    <include file="$(find atlas80evo)/launch/2d_lasers.launch"/>
+  </group>
+
+  <!-- Camera -->
+  <group if="$(arg camera)">
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="enable_fisheye" value="false"/>
+      <arg name="enable_depth" value="true"/>
+      <arg name="enable_infra1" value="false"/>
+      <arg name="enable_infra2" value="false"/>
+      <arg name="enable_color" value="true"/>
+      <arg name="color_width" value="424"/> <!-- 424 -->
+      <arg name="color_height" value="240"/> <!-- 240 -->
+      <arg name="color_fps" value="30"/>
+      <arg name="enable_gyro" value="false"/>
+      <arg name="enable_accel" value="false"/>
+      <arg name="enable_pointcloud" value="true"/>
+      <arg name="enable_sync" value="true"/>
+      <arg name="align_depth" value="false"/>
+    </include>
+  </group>
+
+  <!-- IMU -->
+  <group if="$(arg imu)">
+<!--    <node pkg="st_imu" type="st_imu" name="st_imu">
+      <param name="frame_id" value="imu_link"/>
+    </node> -->
+    <node pkg="imu_3dm_gx3" type="imu_3dm_gx3" name="imu">
+      <param name="port" value="/dev/microstrain-imu"/>
+      <param name="frame_id" value="imu_link"/>
+    </node>
+  </group>
+
+</launch>

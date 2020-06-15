@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <group ns="keyboard_teleop">
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="keyboard" output="screen">
+      <remap from="/keyboard_teleop/cmd_vel" to="/twist_cmd_mux/input/teleop"/>
+    </node>
+  </group>
+
+</launch>

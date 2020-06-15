@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Lane Depart -->
+<!--  <node pkg="atlas80evo" type="lane_depart.py" name="lane_depart" output="screen"/> -->
+
+  <!-- Pointcloud Lost Checker -->
+<!--  <node pkg="atlas80evo" type="pointcloud_lost_checker.py" name="pointcloud_lost_checker">
+    <param name="pc2_threshold" value="1000"/>
+  </node> -->
+  <node pkg="atlas80evo" type="pointcloud_lost_checker_v2.py" name="pointcloud_lost_checker_v2">
+    <param name="pc2_threshold" value="3000"/>
+  </node>
+
+  <!-- Start Pose Initializer -->
+  <node pkg="atlas80evo" type="start_pose_initializer.py" name="start_pose_initializer"/>
+
+  <!-- Path with Speed Visualizer -->
+  <node pkg="atlas80evo" type="path_with_speed_visualizer.py" name="path_with_speed_visualizer"/>
+
+</launch>

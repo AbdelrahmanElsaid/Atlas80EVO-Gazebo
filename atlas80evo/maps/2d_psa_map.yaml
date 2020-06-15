@@ -1,0 +1,7 @@
+image: 2d_psa_map.pgm
+resolution: 0.05
+origin: [65.20000, -59.40000, 1.5707963]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

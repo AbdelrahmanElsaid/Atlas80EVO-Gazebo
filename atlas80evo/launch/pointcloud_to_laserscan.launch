@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+    <remap from="cloud_in" to="/os1_cloud_node/points"/>
+    <remap from="scan" to="/scan"/>
+    <param name="min_height" value="-1.0"/>
+    <param name="max_height" value="2.0"/>
+    <param name="angle_min" value="-3.14159265259"/>
+    <param name="angle_max" value="3.14159265259"/>
+    <param name="angle_increment" value=""/>
+    <param name="scan_time" value="0.05"/>
+    <param name="range_min" value="0.05"/>
+    <param name="range_max" value="50"/>
+    <param name="target_frame" value="base_link"/>
+    <param name="concurrency_level" value=""/>
+    <param name="use_inf" value="true"/>
+  </node>
+</launch>

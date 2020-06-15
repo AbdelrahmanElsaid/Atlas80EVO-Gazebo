@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Front Left 2D LASER -->
+  <group ns="front_left">
+    <node pkg="ira_laser_tools" type="fov_narrower" name="fov_narrower">
+      <param name="ang_min" value="-135"/> <!-- -180 -->
+      <param name="ang_max" value="135"/> <!-- 180 -->
+      <param name="intensity" value="true"/>
+    </node>
+  </group>
+
+  <!-- Rear Right 2D LASER -->
+  <group ns="rear_right">
+    <node pkg="ira_laser_tools" type="fov_narrower" name="fov_narrower">
+      <param name="ang_min" value="-135"/>
+      <param name="ang_max" value="135"/>
+      <param name="intensity" value="true"/>
+    </node>
+  </group>
+
+  <!-- 2D LASER Scan Merger -->
+  <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger">
+    <param name="destination_frame" value="base_link"/>
+    <param name="cloud_destination_topic" value="/laser_2d/merged_cloud"/>
+    <param name="scan_destination_topic" value="/laser_2d/merged_scan"/>
+    <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+    <param name="laserscan_topics" value ="/laser_2d/front_left/scan_filter /laser_2d/rear_right/scan_filter"/>
+    <param name="angle_min" value="-3.14159"/>
+    <param name="angle_max" value="3.14159"/>
+    <param name="range_min" value="0.05"/>
+    <param name="range_max" value="30.0"/>
+    <param name="scan_time" value="0.05"/>
+    <param name="angle_increment" value="0.0015"/> <!-- 0.0058 / 0.0029 / 0.001 / 0.002243-->
+  </node>
+
+</launch>

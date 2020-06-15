@@ -1,0 +1,29 @@
+# Step by Step
+home:
+  # Joint Angles [Deg]
+  - 1: 270
+    2: 82
+    3: 40
+    4: 0
+    5: 240
+    6: 0
+
+loc_1:
+  # Joint Angles [Deg]
+#  - 1: 0
+#    2: 180
+#    3: 170
+#    4: 10
+#    5: 290
+#    6: 5
+
+  # Cartesian Pose [m m m rad rad rad]
+  - 1: -0.26
+    2: 0.0
+    3: 0.8
+    4: -3.0
+    5: -1.06
+    6: -1.51
+
+    
+    

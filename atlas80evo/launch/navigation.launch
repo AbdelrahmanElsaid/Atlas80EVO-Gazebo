@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="rviz" default="false"/>
+  <arg name="offline_test" default="false"/>
+  <arg name="forward_drive" default="true"/>
+  <arg name="reverse_drive" default="true"/>
+  <arg name="traj_server" default="true"/>
+  <arg name="traj_planner" default="false"/>
+  <arg name="obstacle_avoidance" default="false"/>
+  <arg name="geofence" default="false"/>
+  <arg name="safety_limiter" default="false"/>
+  <arg name="use_path_with_velocity" default="true"/>
+  <arg name="pointcloud_topic" default="/os1_cloud_node/points"/>
+  <arg name="drive_topic" default="/twist_cmd_mux/input/autonomous"/>
+<!--  <arg name="speed_topic" default=""/> -->
+  <arg name="2d_map" default="$(find atlas80evo)/maps/maze_world.yaml"/>
+
+  <param name="use_sim_time" value="false"/>
+  <param name="neonavigation_compatible" value="1"/>
+
+  <rosparam command="load" file="$(find atlas80evo)/config/neonavigation.yaml"/>
+
+
+  <!-- Loading 2D Map -->
+  <node pkg="map_server" type="map_server" name="map_server" args="$(arg 2d_map)"/>
+
+  <!-- Planner 3D -->
+  <group if="$(arg traj_planner)">
+    <node pkg="planner_cspace" type="planner_3d" name="planner_3d" output="screen">
+      <param name="use_path_with_velocity" value="$(arg use_path_with_velocity)"/>
+    </node>
+    <!-- Costmap 3D -->
+    <node pkg="costmap_cspace" type="costmap_3d" name="costmap_3d">
+      <rosparam param="footprint">
+        [[0.7, -0.35], [0.7, 0.35], [-0.3, 0.35], [-0.3, -0.35]]
+      </rosparam>
+    </node>
+  </group>
+
+  <!-- Forward Drive Trajectory Tracker -->
+  <group if="$(arg forward_drive)">
+    <node pkg="trajectory_tracker" type="trajectory_tracker_forward_driving" name="trajectory_tracker_forward_driving" output="screen" if="$(arg forward_drive)">
+      <remap from="cmd_vel" to="/twist_cmd_mux/input/autonomous"/>
+    </node>
+  </group>
+
+  <!-- Reverse Drive Trajectory Tracker -->
+  <group if="$(arg reverse_drive)">
+    <node pkg="trajectory_tracker" type="trajectory_tracker_reverse_driving" name="trajectory_tracker_reverse_driving" output="screen" if="$(arg reverse_drive)">
+      <remap from="cmd_vel" to="/twist_cmd_mux/input/autonomous"/>
+    </node>
+  </group>
+
+  <!-- Trajectory Server -->
+  <group if="$(arg traj_server)">
+    <node pkg="trajectory_tracker" type="trajectory_server_v2.py" name="trajectory_server_v2" output="screen">
+    </node>
+  </group>
+
+  <!-- Pointcloud2 to Costmap -->
+  <group if="$(arg obstacle_avoidance)">
+    <node pkg="costmap_cspace" type="pointcloud2_to_map" name="pointcloud2_to_map">
+      <remap from="cloud" to="$(arg pointcloud_topic)"/>
+      <remap from="map_local" to="overlay1"/>
+      <param name="z_min" value="0.1"/>
+      <param name="z_max" value="1.0"/>
+      <param name="global_frame" value="map"/>
+      <param name="robot_frame" value="base_link"/>
+      <param name="accum_duration" value="1.0"/> <!-- cost stored for duration [sec] -->
+      <param name="width" value="80"/>
+      <param name="resolution" value="0.1"/><!-- size of local costmap = width x resolution -->
+      <param name="hz" value="2"/>
+    </node>
+  </group>
+
+  <!-- GeoFenced Map -->
+  <group if="$(arg geofence)">
+    <node pkg="map_server" type="map_server" name="map_server_local" args="$(find atlas80evo)/maps/maze_world_3.yaml">
+      <remap from="map" to="map_with_local_objects"/>
+    </node>
+
+    <node pkg="costmap_cspace" type="largemap_to_map" name="geofenced_map">
+      <remap from="map" to="map_with_local_objects"/>
+      <remap from="map_local" to="overlay1"/>
+      <param name="width" value="1000"/>
+      <param name="hz" value="1.5"/>
+    </node>
+  </group>
+
+  <!-- Safety Limiter -->
+  <group if="$(arg safety_limiter)">
+    <node pkg="safety_limiter" type="safety_limiter" name="safety_limiter" output="screen">
+      <remap from="cmd_vel_in" to="/twist_cmd_mux/output"/>
+      <remap from="cmd_vel" to="/cmd_vel"/>
+      <remap from="cloud" to="$(arg pointcloud_topic)"/>
+      <remap from="cloud" to="/laser_2d/merged_cloud"/>
+      <rosparam param="footprint">
+        [[0.7, -0.35], [0.7, 0.35], [-0.3, 0.35], [-0.3, -0.35]]
+      </rosparam>
+    </node>
+  </group>
+
+  <!-- For Offline Test Using ONLY -->
+  <group if="$(arg offline_test)">
+    <!-- Work as fake odometry package -->
+    <node pkg="planner_cspace" type="dummy_robot" name="dummy_robot">
+      <remap from="cmd_vel" to="$(arg drive_topic)"/>
+    </node>
+
+    <!-- Work as fake localization package -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="map_2_odom" args="0 0 0 0 0 0 map odom"/>
+  </group>
+
+  <!-- RVIZ -->
+  <group if="$(arg rviz)">
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find atlas80evo)/rviz/neonavigation_3d.rviz"/>
+  </group>
+
+</launch>

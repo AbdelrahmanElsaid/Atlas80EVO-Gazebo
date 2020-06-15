@@ -1,0 +1,97 @@
+costmap_3d:
+  ang_resolution: 16
+  linear_expand: 0.08
+  linear_spread: 0.3
+  static_layers:
+    - name: unknown
+      type: Costmap3dLayerUnknownHandle
+      unknown_cost: 100
+    - name: overlay0
+      type: Costmap3dLayerPlain
+      overlay_mode: max
+      linear_expand: 0.0
+      linear_spread: 0.0
+  layers:
+    - name: overlay2
+      type: Costmap3dLayerPlain
+      overlay_mode: max
+      linear_expand: 0.08
+      linear_spread: 0.0
+    - name: overlay1
+      type: Costmap3dLayerFootprint
+      overlay_mode: max
+      linear_expand: 0.15
+      linear_spread: 0.3
+
+planner_3d:
+  num_threads: 2
+  freq: 2.0
+  freq_min: 0.5
+  local_range: 2.0
+
+# Forward Drive - Trajectory Tracker
+trajectory_tracker_forward_driving:
+  frame_robot: base_link
+  frame_odom: odom
+  hz: 20.0
+  look_forward: 0.7 #0.5  #[sec]
+  curv_forward: 0.5  #[sec]
+  k_dist: 7.0 #16.0  # Gain for lateral distance error
+  k_ang: 3.0 #10.0   # Gain for angle error towards the trajectory
+  k_avel: 4.5 #5.0     # Gain for angular velocity error
+  gain_at_vel: 0.0
+  dist_lim: 0.5
+  dist_stop: 1.5
+  rotate_ang: 0.2 #small value <-> slow & precise
+  max_vel: 0.3 #1.0 #1.5
+  max_acc: 0.3
+  max_angvel: 0.4
+  max_angacc: 0.5 #1.0
+  acc_toc_factor: 0.9
+  angacc_toc_factor: 0.9
+  path_step: 1
+  goal_tolerance_dist: 0.06 #0.05
+  goal_tolerance_ang: 0.05
+  stop_tolerance_dist: 0.03 #0.04
+  stop_tolerance_ang: 0.05 #0.04
+  no_position_control_dist: 0.05
+  allow_backward: true
+  limit_vel_by_avel: false  # limit velocity by angular velocity
+  check_old_path: false
+
+# Reverse Drive
+trajectory_tracker_reverse_driving:
+  frame_robot: reverse_link
+  frame_odom: odom
+  hz: 20.0 #50.0
+  look_forward: 0.5 #0.8
+  curv_forward: 0.5
+  k_dist: 6.0 #16.0  # Gain for lateral distance error
+  k_ang: 3.0 #10.0   # Gain for angle error towards the trajectory
+  k_avel: 4.0        # Gain for angular velocity error
+  gain_at_vel: 0.0
+  dist_lim: 0.5
+  dist_stop: 2.0
+  rotate_ang: 0.2 #small value <-> slow & precise
+  max_vel: 0.1 #0.25
+  max_acc: 0.4
+  max_angvel: 0.2
+  max_angacc: 0.5
+  acc_toc_factor: 0.1
+  angacc_toc_factor: 0.9
+  path_step: 1
+  goal_tolerance_dist: 0.08 #0.05
+  goal_tolerance_ang: 0.03 #0.05
+  stop_tolerance_dist: 0.04
+  stop_tolerance_ang: 0.1
+  no_position_control_dist: 0.05
+  allow_backward: true
+  limit_vel_by_avel: false  # limit velocity by angular velocity
+  check_old_path: false
+
+# Safety Limiter
+safety_limiter:
+  frame_id: base_link
+  allow_empty_cloud: false
+  watchdog_interval: 0.0
+  
