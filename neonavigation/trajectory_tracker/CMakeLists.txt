@@ -1,0 +1,74 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(trajectory_tracker)
+
+set(CATKIN_DEPENDS
+  roscpp
+
+  geometry_msgs
+  interactive_markers
+  nav_msgs
+  tf2
+  tf2_geometry_msgs
+  tf2_ros
+
+  neonavigation_common
+  trajectory_tracker_msgs
+#SAMUEL - added---
+  atlas80evo_msgs
+#-----------------
+)
+
+find_package(catkin REQUIRED COMPONENTS ${CATKIN_DEPENDS})
+find_package(Boost REQUIRED COMPONENTS thread)
+find_package(Eigen3 REQUIRED)
+catkin_package(
+  CATKIN_DEPENDS ${CATKIN_DEPENDS}
+)
+
+
+add_compile_options(-std=c++11)
+include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+
+
+add_executable(trajectory_tracker_forward_driving src/trajectory_tracker_forward_driving.cpp)
+target_link_libraries(trajectory_tracker_forward_driving ${catkin_LIBRARIES})
+add_dependencies(trajectory_tracker_forward_driving ${catkin_EXPORTED_TARGETS})
+
+add_executable(trajectory_recorder src/trajectory_recorder.cpp)
+target_link_libraries(trajectory_recorder ${catkin_LIBRARIES})
+add_dependencies(trajectory_recorder ${catkin_EXPORTED_TARGETS})
+
+add_executable(trajectory_saver src/trajectory_saver.cpp)
+target_link_libraries(trajectory_saver ${catkin_LIBRARIES})
+add_dependencies(trajectory_saver ${catkin_EXPORTED_TARGETS})
+
+add_executable(trajectory_server src/trajectory_server.cpp)
+target_link_libraries(trajectory_server ${catkin_LIBRARIES})
+add_dependencies(trajectory_server ${catkin_EXPORTED_TARGETS})
+
+add_executable(trajectory_tracker_reverse_driving src/trajectory_tracker_reverse_driving.cpp)
+target_link_libraries(trajectory_tracker_reverse_driving ${catkin_LIBRARIES})
+add_dependencies(trajectory_tracker_reverse_driving ${catkin_EXPORTED_TARGETS})
+
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+  find_package(rosunit REQUIRED)
+  add_subdirectory(test)
+
+  find_package(roslint REQUIRED)
+  roslint_cpp()
+  roslint_add_test()
+endif()
+
+
+install(TARGETS
+    trajectory_recorder
+    trajectory_saver
+    trajectory_server
+    trajectory_tracker_forward_driving
+    trajectory_tracker_reverse_driving
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
