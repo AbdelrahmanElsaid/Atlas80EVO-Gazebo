@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Gazebo Arguments -->
+  <arg name="world_name"   default="worlds/empty.world"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="rviz"         default="false"/>
+
+  <!-- Load Gazebo Empty World -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"   value="$(arg world_name)"/>
+    <arg name="paused"       value="false"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui"          value="true"/>
+    <arg name="headless"     value="false"/>
+    <arg name="debug"        value="false"/>
+  </include>
+
+  <!-- Spawn Atlas80evo Model and Controller -->
+  <include file="$(find atlas80evo_gazebo)/launch/spawn_atlas80evo.launch">
+    <arg name="x"        value="0.0"/> <!-- -2.0 -->
+    <arg name="y"        value="0.0"/> <!-- -1.0 -->
+    <arg name="z"        value="0.35"/>
+    <arg name="yaw"      value="0.0"/>
+    <arg name="2d_laser" value="true"/>
+    <arg name="3d_laser" value="true"/>
+    <arg name="camera"   value="true"/>
+    <arg name="imu"      value="true"/>
+    <arg name="led"      value="false"/>
+    <arg name="lifter"   value="false"/>
+  </include>
+
+  <!-- Spawn Maze Model -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_maze" args="-sdf
+    -file $(find atlas80evo_gazebo)/models/maze_AT80/model.sdf -model walls" output="screen"/>
+
+  <!-- Spawn Table Model -->
+<!--  <node pkg="gazebo_ros" type="spawn_model" name="spawn_table" args="-sdf
+    -file $(find atlas80evo_gazebo)/models/PSA_Table/model.sdf -model table -x 7.0 -y -7.0" output="screen"/> -->
+
+  <!-- RViz -->
+  <group if="$(arg rviz)">
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find atlas80evo_gazebo)/rviz/model.rviz"/>
+  </group>
+
+</launch>

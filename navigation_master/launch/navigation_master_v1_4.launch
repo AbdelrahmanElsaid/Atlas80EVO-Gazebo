@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Navigation Master -->
+  <node pkg="navigation_master" type="navigation_master_v1_4.py" name="navigation_master_v1_4" output="screen">
+    <param name="path_directory" value="/home/atlas80evo/catkin_ws/src/atlas80evo/traj/json_path"/>
+    <!-- <param name="directory" value="/home/atlas80evo/catkin_ws/src/atlas80evo/traj/all_old"/> -->
+    <param name="mission_sound" value="/home/atlas80evo/catkin_ws/src/atlas80evo/sounds/beeping.ogg"/>
+    <param name="default_sound" value="/home/atlas80evo/catkin_ws/src/atlas80evo/sounds/bb8.ogg"/>
+    <param name="battery_threshold" value="50"/> <!-- [%] -->
+  </node>
+
+  <!-- Doing Table Pickup Action -->
+<!--  <node pkg="navigation_master" type="action_pickup_table.py" name="action_pickup_table" output="screen"/> -->
+  <node pkg="navigation_master" type="action_pickup_table_v2.py" name="action_pickup_table_v2" output="screen"/>
+<!--  <node pkg="under_table" type="table_finder.py" name="table_finder"/> -->
+  <node pkg="under_table" type="table_finder_v2.py" name="table_finder_v2"/>
+
+  <!-- Doing Table Dropoff Action -->
+<!--  <node pkg="navigation_master" type="action_dropoff_table.py" name="action_dropoff_table" output="screen"/> -->
+  <node pkg="navigation_master" type="action_dropoff_table_v2.py" name="action_dropoff_table_v2" output="screen"/>
+  <node pkg="turning_180" type="turning_180_v4.py" name="turning_180_v4"/>
+  <node pkg="under_table" type="leave_table.py" name="leave_table"/>
+
+  <!-- Charging Action -->
+  <node pkg="navigation_master" type="action_charging_v2.py" name="action_charging_v2" output="screen">
+    <param name="battery_full" value="100"/>
+    <param name="full_charge_time" value="100"/>
+    <param name="start_charge_time" value="3"/>
+  </node>
+  <node pkg="self_charging" type="charger_finder_v3.py" name="charger_finder_v3"/>
+<!--  <node pkg="self_charging" type="leave_charger.py" name="leave_charger" output="screen"/>
+-->
+
+</launch>

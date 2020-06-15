@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="atlas80evo">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <xacro:arg name="2d_laser" default="false"/>
+  <xacro:arg name="3d_laser" default="false"/>
+  <xacro:arg name="camera" default="false"/>
+  <xacro:arg name="imu" default="false"/>
+  <xacro:arg name="led" default="false"/>
+  <xacro:arg name="lifter" default="false"/>
+
+  <xacro:arg name="robot_namespace" default="/"/>
+<!--  <xacro:include filename="$(find atlas80evo_description)/urdf/atlas80evo/materials.xacro"/> -->
+
+  <!-- Including AGV Model -->
+  <xacro:include filename="$(find atlas80evo_description)/urdf/atlas80evo/body.urdf.xacro"/>
+  <!-- Base_link is the center of the robot's bottom plate -->
+  <xacro:body body_link="base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:body>
+
+  <!-- Including Wheels -->
+  <xacro:include filename="$(find atlas80evo_description)/urdf/atlas80evo/wheel.urdf.xacro"/>
+  <!-- Actuated Wheel Properties -->
+  <xacro:property name="wheel_width" value="0.0822"/>
+  <xacro:property name="wheel_radius" value="0.127"/>
+  <!-- Actuated Wheel macros-->
+  <xacro:wheel wheel_prefix="left" parent="base_link">
+    <origin xyz="0 0.244 -0.21526" rpy="0 0 0"/>
+<!--    <origin xyz="0 0.244 0.1275" rpy="0 0 0"/> -->
+  </xacro:wheel>
+  <xacro:wheel wheel_prefix="right" parent="base_link">
+    <origin xyz="0 -0.244 -0.21526" rpy="0 0 0"/>
+<!--    <origin xyz="0 -0.244 0.1275" rpy="0 0 0"/> -->
+  </xacro:wheel>
+
+  <!-- Including Caster Wheels -->
+  <xacro:include filename="$(find atlas80evo_description)/urdf/atlas80evo/caster_wheel.urdf.xacro"/>
+  <!-- Caster Wheel Properties -->
+  <xacro:property name="caster_wheel_width" value="0.055"/>
+  <xacro:property name="caster_wheel_radius" value="0.05"/>
+  <!-- Caster Wheel macros-->
+  <xacro:caster_wheel wheel_prefix="left" parent="base_link">
+    <origin xyz="0.5374 0.1575 -0.16976" rpy="0 0 0"/>
+<!--    <origin xyz="0.5374 0.1575 0.173" rpy="0 0 0"/> -->
+  </xacro:caster_wheel>
+  <xacro:caster_wheel wheel_prefix="right" parent="base_link">
+    <origin xyz="0.5374 -0.1575 -0.16976" rpy="0 0 0"/>
+<!--    <origin xyz="0.5374 -0.1575 0.173" rpy="0 0 0"/> -->
+  </xacro:caster_wheel>
+
+  <!-- Including 3D Laser -->
+  <xacro:if value="$(arg 3d_laser)">
+    <xacro:include filename="$(find atlas80evo_description)/urdf/sensors/VLP-16.urdf.xacro"/>
+    <xacro:VLP-16 name="3d_laser" parent="base_link" topic="os1_cloud_node/points" hz="10" samples="2048" min_range="0.5" max_range="120.0" gpu="true">
+      <origin xyz="0.5425 0 0.476" rpy="0 0 0"/>
+    </xacro:VLP-16>
+  </xacro:if>
+
+  <!-- Including 2D Lasers -->
+  <xacro:if value="$(arg 2d_laser)">
+    <xacro:include filename="$(find atlas80evo_description)/urdf/sensors/hokuyo.urdf.xacro"/>
+    <!-- Front Left Corner -->
+    <xacro:hokuyo name="front_left" parent="base_link" hz="20" samples="4200" min_range="0.05" max_range="30.0">
+      <origin xyz="0.60201 0.21211 0" rpy="${M_PI} 0 ${M_PI/4}"/>
+    </xacro:hokuyo>
+    <!-- Rear Right Corner -->
+    <xacro:hokuyo name="rear_right" parent="base_link" hz="20" samples="4200" min_range="0.05" max_range="30.0">
+      <origin xyz="-0.18211 -0.21211 0" rpy="${M_PI} 0 ${-M_PI*3/4}"/>
+    </xacro:hokuyo>
+  </xacro:if>
+
+  <!-- Including Camera -->
+  <xacro:if value="$(arg camera)">
+    <xacro:include filename="$(find atlas80evo_description)/urdf/sensors/d435.urdf.xacro"/>
+    <xacro:camera_d435 parent="base_link">
+      <origin xyz="0.63113 0 0.285" rpy="0 ${M_PI/6} 0"/> <!-- ${M_PI/4} ${M_PI/6} -->
+    </xacro:camera_d435>
+  </xacro:if>
+
+  <!-- Including IMU -->
+  <xacro:if value="$(arg imu)">
+    <xacro:include filename="$(find atlas80evo_description)/urdf/sensors/imu.urdf.xacro"/>
+    <xacro:imu parent="base_link">
+      <origin xyz="0 0 0.08" rpy="0 0 0"/>
+    </xacro:imu>
+  </xacro:if>
+
+  <!-- Including Lifter -->
+  <xacro:if value="$(arg lifter)">
+    <xacro:include filename="$(find atlas80evo_description)/urdf/atlas80evo/lifter.urdf.xacro"/>
+    <xacro:lifter parent="base_link">
+      <origin xyz="0.12 0 0.6" rpy="0 0 0"/>
+<!--      <origin xyz="0.12 0 0.6" rpy="0 0 0"/> -->
+    </xacro:lifter>
+  </xacro:if>
+
+  <!-- Including LED -->
+  <xacro:if value="$(arg led)">
+<!--
+    <xacro:include filename="$(find atlas80evo_description)/urdf/led/led.urdf.xacro"/>
+    <xacro:led led_prefix="main" parent="base_link" xyz="0 0 0.5" rpy="0 0 0">
+-->
+    <xacro:include filename="$(find atlas80evo_description)/urdf/led.urdf.xacro"/>
+    <xacro:led parent="base_link">
+      <origin xyz="0.3485 0 0.38" rpy="0 0 0"/>
+<!--      <origin xyz="0.3485 0 0.28" rpy="0 0 0"/> -->
+<!--      <pose>0 0 0.3 0 0 0</pose> -->
+      <params>
+        <block>
+          <duration>0.3</duration>
+          <interval>0.3</interval>
+          <color>1 0 0</color>
+        </block>
+        <block>
+          <duration>0.3</duration>
+          <interval>0.3</interval>
+          <color>0 1 0</color>
+        </block>
+        <block>
+          <duration>0.3</duration>
+          <interval>0.3</interval>
+          <color>0 0 1</color>
+        </block>
+        <block>
+          <duration>0.3</duration>
+          <interval>0.3</interval>
+          <color>1 1 0</color>
+        </block>
+        <block>
+          <duration>0.3</duration>
+          <interval>0.3</interval>
+          <color>1 1 1</color>
+        </block>
+      </params>
+    </xacro:led>
+  </xacro:if>
+
+  <!-- Gazebo Plugins -->
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>20</updateRate>
+      <leftJoint>left_wheel_joint</leftJoint>
+      <rightJoint>right_wheel_joint</rightJoint>
+      <wheelSeparation>0.5</wheelSeparation>
+      <wheelDiameter>0.254</wheelDiameter>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>false</publishWheelJointState>
+      <wheelTorque>20.0</wheelTorque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>wheel/odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishOdomTF>false</publishOdomTF>
+    </plugin>
+  </gazebo>
+
+<!--
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>$(arg robot_namespace)</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+-->
+
+</robot>

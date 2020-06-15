@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="hokuyo">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <xacro:macro name="hokuyo" params="name parent:=base_link *origin hz:=40 samples:=1080 min_angle:=-${M_PI*3/4} max_angle:=${M_PI*3/4} min_range:=0.05 max_range:=15">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${name}_2d_laser"/>
+    </joint>
+
+    <link name="${name}_2d_laser">
+      <inertial>
+        <mass value="0.270" />
+        <origin xyz="0 0 -0.02" rpy="0 0 0" />
+        <inertia ixx="2.632e-4" ixy="0" ixz="0" iyy="2.632e-4" iyz="0" izz="1.62e-4" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 -0.02" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/sensors/hokuyo.dae"/>
+        </geometry>
+      </visual>
+<!--
+      <collision>
+        <origin xyz="0 0 -0.0115" rpy="0 0 0" />
+        <geometry>
+          <box size="0.058 0.058 0.087" />
+        </geometry>
+      </collision>
+-->
+    </link>
+
+    <gazebo reference="${name}_2d_laser">
+      <sensor type="ray" name="${name}">
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>${hz}</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>${min_angle}</min_angle>
+              <max_angle>${max_angle}</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>${min_range}</min>
+            <max>${max_range}</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_${name}_2d_laser_controller" filename="libgazebo_ros_laser.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <topicName>laser_2d/${name}/scan</topicName>
+          <frameName>${name}_2d_laser</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,5 @@
+# Set the udev rule, make the device_port be fixed by Turktronic Board
+
+SUBSYSTEMS=="usb", KERNEL=="tty*", ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="666", GROUP="dialout", SYMLINK+="turktronic"
+
+SUBSYSTEMS=="usb", KERNEL=="tty*", ACTION=="add", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0004", MODE="666", GROUP="dialout", SYMLINK+="turktronic"

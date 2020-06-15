@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>led_gazebo_plugin</name>
+  <version>0.0.0</version>
+  <description>The led_gazebo_plugin package</description>
+
+
+  <maintainer email="brobotics00@todo.todo">brobotics00</maintainer>
+
+  <license>TODO</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>gazebo</build_depend>
+  <build_depend>gazebo_plugins</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

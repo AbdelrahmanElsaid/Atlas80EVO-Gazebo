@@ -1,0 +1,77 @@
+Script started on Thu 22 Aug 2019 01:50:42 PM +08
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ rosrun line_detection lane _departure.py
+import: not authorized `rs' @ error/constitute.c/WriteImage/1028.
+import: not authorized `np' @ error/constitute.c/WriteImage/1028.
+import: not authorized `cv2' @ error/constitute.c/WriteImage/1028.
+import: not authorized `math' @ error/constitute.c/WriteImage/1028.
+import: not authorized `time' @ error/constitute.c/WriteImage/1028.
+import: not authorized `rospy' @ error/constitute.c/WriteImage/1028.
+import: not authorized `socket' @ error/constitute.c/WriteImage/1028.
+import: not authorized `serial' @ error/constitute.c/WriteImage/1028.
+import: not authorized `urllib' @ error/constitute.c/WriteImage/1028.
+from: can't read /var/mail/cv_bridge
+from: can't read /var/mail/sensor_msgs.msg
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 14: syntax error near unexpected token `('
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 14: `pipeline = rs.pipeline()'
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ rosrun line_detection lane__departure.py
+import: not authorized `rs' @ error/constitute.c/WriteImage/1028.
+import: not authorized `np' @ error/constitute.c/WriteImage/1028.
+import: not authorized `cv2' @ error/constitute.c/WriteImage/1028.
+import: not authorized `math' @ error/constitute.c/WriteImage/1028.
+import: not authorized `time' @ error/constitute.c/WriteImage/1028.
+import: not authorized `rospy' @ error/constitute.c/WriteImage/1028.
+import: not authorized `socket' @ error/constitute.c/WriteImage/1028.
+import: not authorized `serial' @ error/constitute.c/WriteImage/1028.
+import: not authorized `urllib' @ error/constitute.c/WriteImage/1028.
+from: can't read /var/mail/cv_bridge
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 14: syntax error near unexpected token `('
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 14: `pipeline = rs.pipeline()'
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ realsense-vu[Kiw[Kewer
+ 22/08 13:56:39,306 WARNING [139818155632384] (backend-v4l2.cpp:1149) Pixel format 36315752-1a66-a242-9065-d01814a likely requires patch for fourcc code RW16!
+ 22/08 13:56:45,396 WARNING [139818113668864] (ds5-timestamp.cpp:64) UVC metadata payloads not available. Please refer to the installation chapter for details.
+ 22/08 13:56:47,754 WARNING [139818017220352] (ds5-timestamp.cpp:64) UVC metadata payloads not available. Please refer to the installation chapter for details.
+^C
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ realsense-viewerosrun line_detection lane__departure.py
+import: not authorized `rs' @ error/constitute.c/WriteImage/1028.
+import: not authorized `np' @ error/constitute.c/WriteImage/1028.
+import: not authorized `cv2' @ error/constitute.c/WriteImage/1028.
+import: not authorized `math' @ error/constitute.c/WriteImage/1028.
+import: not authorized `time' @ error/constitute.c/WriteImage/1028.
+import: not authorized `rospy' @ error/constitute.c/WriteImage/1028.
+import: not authorized `socket' @ error/constitute.c/WriteImage/1028.
+import: not authorized `serial' @ error/constitute.c/WriteImage/1028.
+import: not authorized `urllib' @ error/constitute.c/WriteImage/1028.
+from: can't read /var/mail/cv_bridge
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 15: syntax error near unexpected token `('
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 15: `config = rs.config()'
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ rosrun line_detection lane__departure.py
+import: not authorized `rs' @ error/constitute.c/WriteImage/1028.
+import: not authorized `np' @ error/constitute.c/WriteImage/1028.
+import: not authorized `cv2' @ error/constitute.c/WriteImage/1028.
+import: not authorized `math' @ error/constitute.c/WriteImage/1028.
+import: not authorized `time' @ error/constitute.c/WriteImage/1028.
+import: not authorized `rospy' @ error/constitute.c/WriteImage/1028.
+import: not authorized `socket' @ error/constitute.c/WriteImage/1028.
+import: not authorized `serial' @ error/constitute.c/WriteImage/1028.
+import: not authorized `urllib' @ error/constitute.c/WriteImage/1028.
+from: can't read /var/mail/cv_bridge
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 17: syntax error near unexpected token `('
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 17: `class DriverNNOnly(object):'
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ rosrun line_detection lane__departure.py\[K
+ import: not authorized `rs' @ error/constitute.c/WriteImage/1028.
+import: not authorized `np' @ error/constitute.c/WriteImage/1028.
+import: not authorized `cv2' @ error/constitute.c/WriteImage/1028.
+import: not authorized `math' @ error/constitute.c/WriteImage/1028.
+import: not authorized `time' @ error/constitute.c/WriteImage/1028.
+import: not authorized `rospy' @ error/constitute.c/WriteImage/1028.
+import: not authorized `socket' @ error/constitute.c/WriteImage/1028.
+import: not authorized `serial' @ error/constitute.c/WriteImage/1028.
+import: not authorized `urllib' @ error/constitute.c/WriteImage/1028.
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 17: syntax error near unexpected token `('
+/home/atlas80evo/catkin_ws/src/line_detection/script/lane_departure.py: line 17: `class DriverNNOnly(object):'
+]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$  rosrun line_detection lane__departure.py[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$  [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crosrun line_detection lane__departure.py[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[10Pealsense-viewer
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cosrun line_detection lane__departure.py[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Cservice call /fsm_node/set_state "TABLE_DROPPING"[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Ppic
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cfsm_node/sset_state "DELIVERY"[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Ctopic echo /battery/perc[Cnt [K[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cvoltage[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Cservice call /fsm_node/set_state "DELIVERY"[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Ctopic echo /twist_cmd_mu[10Px/active [A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Claunch web_server web_se[11@rver_handler.launch[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[Cnavigation_master[11@ navigation_master_v1_1[C[C[C[C[C[C[C[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[Catlas80evo naviga[19Ption[C[C[C[C[C[C[C[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clocali[2@za[C[C[C[C[C[C[C[C[C[C[C[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cbasic.[7P[C[C[C[C[C[C[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Ctopic echo /battery/volt[3Page[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Claunch atlas80evo basic.[3@launch[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Ctopic echo /battery/volt[3Page[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cperc[3@ent[C[C[C[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Claunch atlas80evo basic.launch[C[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Cservice call /fsm_node/set_state "ERROR"DELIVERY"[A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Ctopic info /lifter/cmd  [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho /lifter/cmd  [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Claunch atlas80evo basic..launch [A]0;atlas80evo@atlas80evo: ~/catkin_ws/src/line_detection[01;32matlas80evo@atlas80evo[00m:[01;34m~/catkin_ws/src/line_detection[00m$ [C[C[Ctopic echo /lifter/cmd  [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4Pinfo /lifter/
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C

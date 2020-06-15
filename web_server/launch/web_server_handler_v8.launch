@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Compatible with navigation_master_v1_9 only -->
+  <node pkg="web_server" type="web_server_handler_v8.py" name="web_server_handler_v8" output="screen">
+    <param name="ros_to_web" value="/web/all_status"/>
+    <param name="health_error" value="/health/error"/>
+    <param name="state_handler" value="/fsm_node/state"/>
+    <param name="mission" value="/web/mission"/>
+    <param name="url" value="https://atlas80-psa-prod.southeastasia.cloudapp.azure.com"/>
+    <!-- AWS:   http://13.251.126.12 -->
+    <!-- Azure: http://52.163.54.85 --> 
+    <!-- Azure: https://atlas80-psa-prod.southeastasia.cloudapp.azure.com --> 
+  </node>
+</launch>

@@ -1,0 +1,24 @@
+Header header
+string state
+
+# Pseudo Constants
+string SUSPEND="SUSPEND"
+string CHARGING="CHARGING"
+string DELIVERY="DELIVERY"
+string TABLE_PICKING="TABLE_PICKING"
+string TABLE_DROPPING="TABLE_DROPPING"
+string MANUAL="MANUAL"
+string STANDBY="STANDBY"
+string ERROR="ERROR"
+string LANE_FOLLOWING="LANE_FOLLOWING"
+
+# List of States
+# - SUSPEND
+# - CHARGING
+# - DELIVERY
+# - TABLE_PICKING
+# - TABLE_DROPPING
+# - MANUAL
+# - STANDBY
+# - ERROR
+# - LANE_FOLLOWING

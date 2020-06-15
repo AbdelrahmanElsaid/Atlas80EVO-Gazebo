@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="file_config" default="$(find obstacle_stop)/config/detection_region_v2_2.yaml"/>
+
+  <node pkg="obstacle_stop" type="obstacle_stop_v2_2.py" name="obstacle_stop_v2_2" output="screen">
+    <param name="filepath" value="$(arg file_config)"/>
+    <param name="speed_limit" value="0.6"/>
+  </node>
+</launch>

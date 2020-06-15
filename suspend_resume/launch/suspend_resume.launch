@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Suspend/Resume Handler -->
+  <node pkg="suspend_resume" type="suspend_resume_handler_3.py" name="suspend_resume_handler_3"/>
+
+</launch>

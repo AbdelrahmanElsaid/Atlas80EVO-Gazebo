@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+
+<launch>
+  <!-- Doing Table Pickup Action -->
+<!--  <node pkg="navigation_master" type="action_pickup_table.py" name="action_pickup_table" output="screen"/> -->
+  <node pkg="navigation_master" type="action_pickup_table_v2.py" name="action_pickup_table_v2" output="screen"/>
+<!--  <node pkg="under_table" type="table_finder.py" name="table_finder"/> -->
+  <node pkg="under_table" type="table_finder_v3.py" name="table_finder_v3" output="screen"/>
+
+</launch>

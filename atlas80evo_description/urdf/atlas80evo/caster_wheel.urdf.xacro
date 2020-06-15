@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="caster_wheel">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <xacro:macro name="caster_wheel" params="wheel_prefix parent *joint_pose">
+
+    <!-- Caster Hub -->
+    <joint name="${wheel_prefix}_caster_rotation_joint" type="continuous">
+      <parent link="${parent}"/>
+      <child link="${wheel_prefix}_caster_rotation_link"/>
+      <xacro:insert_block name="joint_pose"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.01" friction="0.0"/>
+    </joint>
+
+    <link name="${wheel_prefix}_caster_rotation_link">
+      <inertial>
+        <mass value="2.5"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.00471706" ixy="0" ixz="0" iyy="0.0042673" iyz="0" izz="0.0014466"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/atlas80evo/Caster_Hub.STL"/>
+        </geometry>
+        <material name="grey"><!-- silver -->
+          <color rgba="0.175 0.175 0.175 1"/><!-- 0.74 0.76 0.78 1 -->
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/atlas80evo/Caster_Hub.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${wheel_prefix}_caster_rotation_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- Caster Wheel -->
+    <joint name="${wheel_prefix}_caster_wheel_joint" type="continuous">
+      <parent link="${wheel_prefix}_caster_rotation_link"/>
+      <child link="${wheel_prefix}_caster_wheel_link"/>
+      <origin xyz="-0.035 0 -0.125" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+    <link name="${wheel_prefix}_caster_wheel_link">
+      <inertial>
+        <mass value="2.5"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.00219271" ixy="0" ixz="0" iyy="0.00219271" iyz="0" izz="0.003125"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/atlas80evo/Caster_Wheel.STL"/>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.175 0.175 0.175 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/atlas80evo/Caster_Wheel.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${wheel_prefix}_caster_wheel_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

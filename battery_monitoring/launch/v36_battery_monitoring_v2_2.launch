@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- 36V Battery Monitoring -->
+  <node pkg="battery_monitoring" type="battery_monitoring.py" name="v36_battery_monitoring" output="screen">
+    <param name="voltage_topic" value="/battery/voltage"/> <!-- /roboteq/voltage -->
+    <param name="battery_topic" value="/battery/percent"/>
+    <param name="v_max" value="39.0"/>
+    <param name="v_min" value="32.0"/>
+    <param name="samples" value="7"/>
+  </node>
+
+  <!-- Battery GUI -->
+<!--  <node pkg="battery_monitoring" type="battery_gui.py" name="battery_gui"/> -->
+</launch>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="world_name"   default="worlds/empty.world"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="rviz"         default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name"   value="$(arg world_name)"/>
+    <arg name="paused"       value="false"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui"          value="true"/>
+    <arg name="headless"     value="false"/>
+    <arg name="debug"        value="false"/>
+  </include>
+
+  <include file="$(find atlas80evo_gazebo)/launch/spawn_atlas80evo.launch">
+    <arg name="x"        value="0.0"/>
+    <arg name="y"        value="0.0"/>
+    <arg name="z"        value="0.35"/>
+    <arg name="yaw"      value="0.0"/>
+    <arg name="2d_laser" value="false"/>
+    <arg name="3d_laser" value="false"/>
+    <arg name="camera"   value="false"/>
+    <arg name="imu"      value="true"/>
+    <arg name="led"      value="true"/>
+    <arg name="lifter"   value="false"/>
+  </include>
+
+  <!-- RViz -->
+  <group if="$(arg rviz)">
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find atlas80evo_gazebo)/rviz/model.rviz"/>
+  </group>
+
+</launch>

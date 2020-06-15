@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="publish_tf" default="true"/>
+  <arg name="input_topic" default="/wheel/encoders"/>
+  <arg name="output_topic" default="/wheel/odom"/>
+  <arg name="odom_frame" default="odom"/>
+  <arg name="base_frame" default="base_link"/>
+
+  <node pkg="wheel_odometry" type="differential_drive_wheel_odom.py" name="wheel_odom">
+    <param name="publish_tf" value="$(arg publish_tf)"/>
+    <param name="encoder_topic" value="$(arg input_topic)"/>
+    <param name="odom_topic" value="$(arg output_topic)"/>
+    <param name="rate" value="30.0"/>
+    <param name="ticks_meter" value="310"/>
+    <param name="base_width" value="0.5"/>
+    <param name="odom_frame_id" value="$(arg odom_frame)"/>
+    <param name="base_frame_id" value="$(arg base_frame)"/>
+    <param name="enc_min" value="-2147483647"/>
+    <param name="enc_max" value="2147483647"/>
+  </node>
+
+</launch>

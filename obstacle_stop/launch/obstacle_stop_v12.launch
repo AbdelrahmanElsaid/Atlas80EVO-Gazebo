@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node pkg="obstacle_stop" type="obstacle_stop_v12.py" name="obstacle_stop_v12" output="screen">
+        <param name="scan_topic" value="/laser_2d/merged_scan"/>
+        <param name="drive_topic" value="/twist_cmd_mux/input/safety"/>
+        <param name="speed_topic" value="/twist_cmd_mux/input/autonomous"/>
+        <param name="obstacle_mode_topic" value="/obstacle_stop/mode"/>
+        <param name="viz_outer_region_topic" value="/obstacle_stop/viz/detection_region/outer"/>
+        <param name="viz_inner_region_topic" value="/obstacle_stop/viz/detection_region/inner"/>
+        <param name="file_location" value="/home/atlas80evo/catkin_ws/src/obstacle_stop/config"/>
+        <param name="speed_limit" value="0.7"/>
+    </node>
+</launch>

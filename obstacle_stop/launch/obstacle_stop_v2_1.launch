@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="obstacle_stop" type="obstacle_stop_v2_1.py" name="obstacle_stop_v2_1" output="screen">
+    <param name="filepath" value="/home/atlas80evo/catkin_ws/src/obstacle_stop/config/detection_region_v2_1.yaml"/>
+    <param name="speed_limit" value="0.7"/>
+  </node>
+</launch>

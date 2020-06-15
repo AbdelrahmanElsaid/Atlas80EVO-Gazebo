@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="lifter">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <xacro:macro name="lifter" params="parent *lifter_pose">
+    <!-- Lifter -->
+    <link name="lifter_link">
+      <inertial>
+        <mass value="10.0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.1338542" ixy="0" ixz="0" iyy="0.0755208" iyz="0" izz="0.2083333"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.3 0.4 0.025"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.3 0.4 0.025"/>
+        </geometry>
+      </collision>
+    </link>
+
+<!--    <gazebo reference="lifter_link">
+      <mu1 value="1.0"/>
+      <mu2 value="1.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+      <minDepth>0.001</minDepth>
+    </gazebo> -->
+
+    <joint name="lifter_joint" type="prismatic">
+      <parent link="${parent}"/>
+      <child link="lifter_link"/>
+      <xacro:insert_block name="lifter_pose"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="0.0" upper="0.15" effort="100" velocity="0.2"/>
+    </joint>
+
+<!--    <gazebo reference="lifter_joint">
+      <implicitSpringDamper>1</implicitSpringDamper>
+    </gazebo> -->
+
+    <transmission name="lifter_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="lifter_joint">
+<!--        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="lifter_motor">
+<!--        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+  </xacro:macro>
+</robot>

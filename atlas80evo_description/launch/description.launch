@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="robot_namespace" default="/"/>
+  <arg name="2d_laser" default="false"/>
+  <arg name="3d_laser" default="false"/>
+  <arg name="camera" default="false"/>
+  <arg name="imu" default="false"/>
+  <arg name="led" default="false"/>
+  <arg name="lifter" default="false"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(find atlas80evo_description)/urdf/atlas80evo.urdf.xacro'
+    --inorder
+    robot_namespace:=$(arg robot_namespace)
+    2d_laser:=$(arg 2d_laser)
+    3d_laser:=$(arg 3d_laser)
+    camera:=$(arg camera)
+    imu:=$(arg imu)
+    led:=$(arg led)
+    lifter:=$(arg lifter)
+    "/>
+
+</launch>

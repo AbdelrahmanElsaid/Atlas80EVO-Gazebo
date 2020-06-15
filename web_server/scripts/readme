@@ -1,0 +1,45 @@
+to send data to web:
+
+IF THE DATA CONTAINS NOTHING ABOUT THE BATTERY INFO, THE DATA WILL NOT BE SEND TO SERVER
+
+rostopic pub -r 0.5 /ros_to_web std_msgs/String '5,600,100,testsite2,test_action,testing,Suspend'
+        
+SEQUENCE:
+{
+self.loc_x = ""
+self.loc_y = ""
+self.spd = ""
+self.batt = ""
+self.robot_status = ""
+self.location = ""
+self.action = ""
+self.mis_activity=""
+}
+
+***IMPORTATANT NOTES*** {for testing purposes}
+{as the api doesnot support few things for now, pls send command as below}
+
+>to send error from ros/agv,send in this format ERROR#123, make sure to give the #, handler will process it and send only the number.
+example:
+
+rtopic pub -r 0.5 /error_from_ros std_msgs/String 'ERROR#11223355'
+
+
+>
+self.err_id = "0000"#default error code {strickly use 0000 for no error for now}
+
+self.err_obstacle=["11223355"]       #Error code for uploading image
+
+
+ERROR CODE TO UPLOAD IMAGE IS 11223355 FOR NOW, i'll upload later, use other error code,it'll not ask for image.
+
+TO UPLOAD IAMGE YOU NEED TO HAVE THE IMAGE AND ERROR CODE AT THE SAME TIME OR HAVE TO HAVE THE IMAGE BEFORE SENDING THE ERROR CODE.
+THE SEQUENCE I USE IS:
+
+rservice call /error_image_path /home/arefeen/Pictures/sample.jpg
+
+then
+
+rostopic pub -r 0.5 /error_from_ros std_msgs/String 'ERROR#11223355'
+
+

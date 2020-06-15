@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="body">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <xacro:macro name="body" params="body_link *pose">
+    <link name="${body_link}">
+      <xacro:insert_block name="pose"/>
+      <inertial>
+        <mass value="70.0"/>
+        <origin xyz="0.2 0 0" rpy="0 0 0"/>
+        <inertia ixx="4.5190965" ixy="0" ixz="0" iyy="5.2833433" iyz="0" izz="7.7444398"/> <!-- x=0.854  |  y=0.7735  |  z=0.42 -->
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/atlas80evo/Body_1.STL"/>
+        </geometry>
+        <material name="white"><!-- zinc_yellow / blue -->
+          <color rgba="1 1 1 1"/><!-- 0.9725 0.9529 0.2078 1 / 0.3 0.57 1.0 1-->
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/atlas80evo/Body_1.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${body_link}">
+      <material>Gazebo/White</material><!-- ZincYellow / LightBlueLaser -->
+        <!-- Gazebo Material, please refer to /usr/share/gazebo-9/media/materials/scripts/gazebo.material -->
+    </gazebo>
+
+    <!-- Reverse Robot Link -->
+    <joint name="reverse_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 ${M_PI}"/>
+      <parent link="${body_link}"/>
+      <child link="reverse_link"/>
+    </joint>
+    <link name="reverse_link"/>
+
+    <!-- Lidars Robot Link -->
+<!--
+    <joint name="lidars_${body_link}_joint" type="fixed">
+      <origin xyz="0 0 0.35904" rpy="0 0 0"/>
+      <parent link="${body_link}"/>
+      <child link="lidars_${body_link}"/>
+    </joint>
+    <link name="lidars_${body_link}"/>
+-->
+
+  </xacro:macro>
+</robot>

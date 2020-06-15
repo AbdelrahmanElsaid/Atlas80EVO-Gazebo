@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <model name="PSA_Charger">
+    <link name="link">
+      <pose>0 0 0 0 0 3.14159</pose>
+      <inertial>
+        <pose>0 0 0.2 0 0 0</pose>
+        <mass>20.0</mass>
+	  <inertia>
+	    <ixx>0.9536133</ixx>
+	    <ixy>0.0</ixy>
+	    <ixz>0.0</ixz>
+	    <iyy>0.5711376</iyy>
+	    <iyz>0.0</iyz>
+	    <izz>0.8255376</izz>
+	  </inertia>
+      </inertial>
+      <collision name="collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://PSA_Charger/meshes/Trial_ChargerUnit_07.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://PSA_Charger/meshes/Trial_ChargerUnit_07.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

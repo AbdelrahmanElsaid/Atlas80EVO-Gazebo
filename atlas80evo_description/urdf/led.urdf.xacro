@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="led">
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+  <xacro:property name="default_color" value="0 0 0"/>
+
+  <xacro:macro name="led" params="parent *led_pose **plugin_params">
+<!--  <xacro:macro name="led" params="parent led_pose **plugin_params"> -->
+    <link name="led_link"/>
+
+    <!-- Main Link -->
+    <joint name="led_joint" type="fixed">
+      <xacro:insert_block name="led_pose"/>
+      <parent link="${parent}"/>
+      <child link="led_link"/>
+    </joint>
+
+    <!-- Front LED -->
+    <joint name="front_led_joint" type="fixed">
+      <origin xyz="0.005 0 0.1078" rpy="0 0 0"/>
+      <parent link="led_link"/>
+      <child link="front_led_link"/>
+    </joint>
+
+    <link name="front_led_link">
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.00471706" ixy="0" ixz="0" iyy="0.0042673" iyz="0" izz="0.0014466"/>
+      </inertial>
+      <visual name="front_led">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/led/LED_Front.STL"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- Rear LED -->
+    <joint name="rear_led_joint" type="fixed">
+      <origin xyz="-0.0025 0 0" rpy="0 0 ${M_PI}"/>
+      <parent link="led_link"/>
+      <child link="rear_led_link"/>
+    </joint>
+
+    <link name="rear_led_link">
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.00471706" ixy="0" ixz="0" iyy="0.0042673" iyz="0" izz="0.0014466"/>
+      </inertial>
+      <visual name="rear_led">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atlas80evo_description/meshes/led/LED_Rear.STL"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <gazebo>
+      <model name="led">
+        <link name="led_link">
+<!--
+          <inertial>
+            <mass>0.001</mass>
+            <inertia>
+              <ixx>1.0e-06</ixx>
+              <ixy>0</ixy>
+              <ixz>0</ixz>
+              <iyy>1.0e-06</iyy>
+              <iyz>0</iyz>
+              <izz>1.0e-06</izz>
+            </inertia>
+          </inertial>
+-->
+          <visual name="front_led">
+            <pose>0 0 0 0 0 0</pose>
+            <geometry>
+              <box>
+                <size>0.3 0.01 0.01</size>
+              </box>
+<!--
+              <mesh>
+                <uri>model://atlas80evo_description/meshes/led/LED_Front.STL</uri>
+              </mesh>
+-->
+            </geometry>
+            <transparency>1</transparency>
+            <material>
+              <ambient>1 1 1 1</ambient>
+              <diffuse>1 1 1 1</diffuse>
+              <specular>1 1 1 1</specular>
+              <emissive>${default_color} 1</emissive>
+            </material>
+            <plugin name="led_source_visualize" filename="libLightVisualPlugin.so">
+              <light>
+                <id>front_led</id>
+                <visualize>false</visualize>
+              </light>
+            </plugin>
+          </visual>
+          <light name="front_led" type="point">
+            <pose>0 0 0 0 ${M_PI} 0"</pose>
+            <attenuation>
+              <range>1</range>
+              <constant>0.5</constant>
+              <linear>0.1</linear>
+              <quadratic>0.5</quadratic>
+            </attenuation>
+            <diffuse>${default_color} 1</diffuse>
+            <specular>${default_color} 1</specular>
+          </light>  
+        </link>
+        <plugin name="led_control" filename="libRosFlashLightPlugin.so">
+          <service_name>cmd</service_name>
+          <light>
+            <id>led_link/front_led</id>
+            <xacro:insert_block name="plugin_params"/>
+            <enable>false</enable>
+          </light>
+        </plugin>
+      </model>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

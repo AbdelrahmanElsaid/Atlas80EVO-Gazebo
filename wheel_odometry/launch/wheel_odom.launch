@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="odom_frame" default="odom"/>
+  <arg name="base_frame" default="base_link"/> 
+  <arg name="output_topic" default="/wheel/odom"/>
+  <arg name="publish_tf" default="true"/>
+
+  <node pkg="wheel_odometry" type="diff_tf.py" name="wheel_odom">
+    <remap from="/odom" to="$(arg output_topic)"/>
+    <param name="rate" value="20.0"/>
+    <param name="ticks_meter" value="650.48195824"/>
+    <param name="base_width" value="0.69"/>
+    <param name="base_frame_id" value="$(arg base_frame)"/>
+    <param name="odom_frame_id" value="$(arg odom_frame)"/>
+    <param name="encoder_min" value="-2147483647"/>
+    <param name="encoder_max" value="2147483647"/>
+    <param name="publish_tf" value="$(arg publish_tf)"/>
+  </node>
+
+</launch>

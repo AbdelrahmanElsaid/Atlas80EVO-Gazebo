@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="config_file" default="$(find rosbag_recording)/config/default.yaml"/>
+
+  <!-- Rosbag Recording -->
+  <node pkg="rosbag_recording" type="rosbag_recording_v4.py" name="rosbag_recording_v4" output="screen">
+    <rosparam command="load" file="$(arg config_file)"/>
+  </node>
+
+</launch>

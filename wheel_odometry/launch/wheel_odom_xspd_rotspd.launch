@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="publish_tf" default="true"/>
+  <arg name="input_topic" default="/wheel/encoders"/>
+  <arg name="output_topic" default="/wheel/odom"/>
+  <arg name="odom_frame" default="odom"/>
+  <arg name="base_frame" default="base_link"/>
+
+  <node pkg="wheel_odometry" type="wheel_odom_xspd_rotspd.py" name="wheel_odom">
+    <remap from="/wheel/encoder" to="$(arg input_topic)"/>
+    <remap from="/wheel/odom" to="$(arg output_topic)"/>
+    <param name="publish_tf" value="$(arg publish_tf)"/>
+    <param name="odom_frame_id" value="$(arg odom_frame)"/>
+    <param name="base_frame_id" value="$(arg base_frame)"/>
+    <param name="scale_xspd" value="1.0"/>
+    <param name="scale_rotspd" value="1.0"/>
+  </node>
+
+</launch>

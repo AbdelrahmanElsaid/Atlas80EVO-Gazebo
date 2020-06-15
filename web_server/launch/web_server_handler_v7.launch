@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+<!--  <node pkg="web_server" type="web_server_handler_5.py" name="web_server_handler_v5" output="screen"> -->
+<!--  <node pkg="web_server" type="web_server_handler_v6.py" name="web_server_handler_v6" output="screen"> -->
+  <node pkg="web_server" type="web_server_handler_v7.py" name="web_server_handler_v7" output="screen"> <!-- Compatible with navigation_master_v1_9 only -->
+    <param name="ros_to_web" value="/web/all_status"/>
+    <param name="health_error" value="/health/error"/>
+    <param name="state_handler" value="/fsm_node/state"/>
+    <param name="mission" value="/web/mission"/>
+  </node>
+</launch>

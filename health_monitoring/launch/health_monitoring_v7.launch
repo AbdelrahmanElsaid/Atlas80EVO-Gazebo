@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="health_monitoring" type="health_monitoring_v7.py" name="health_monitoring_v6" output="screen">
+    <remap from="/os1_cloud_node/points" to="/os1_cloud_node/points"/>
+    <remap from="/laser_2d/front_left/scan" to="/laser_2d/front_left/scan"/>
+    <remap from="/laser_2d/rear_right/scan" to="/laser_2d/rear_right/scan"/>
+    <remap from="/laser_2d/merged_scan" to="/laser_2d/merged_scan"/>
+    <remap from="/camera/color/image_raw" to="/camera/color/image_raw"/>
+    <remap from="/imu/data_raw" to="/imu/data_raw"/>
+    <remap from="/low_level/status" to="/low_level/status"/>
+    <remap from="/battery/percentage" to="/battery/percent"/>
+    <remap from="/fsm_node/state" to="/fsm_node/state"/>
+    <remap from="/obstacle_health" to="/health/obstacle"/>
+    <remap from="/location_lost_health" to="/health/location_lost"/>
+    <remap from="/motor_health" to="/health/motor"/>
+    <remap from="/SR_health" to="/health/SR"/>
+    <remap from="/fsm_node/set_state" to="/fsm_node/set_state"/>
+    <remap from="/web/health" to="/health/web"/>
+    <remap from="/health/error" to="/health/error"/>
+    <remap from="/twist_cmd_mux/input/safety" to="/twist_cmd_mux/input/safety"/>
+    <remap from="/estop/status" to="/estop/status"/>
+    <remap from="/bumper/status" to= "/bumper/status"/>
+
+
+    <param name="threed_check" value="False"/>
+    <param name="twod_front_check" value="False"/>
+    <param name="twod_rear_check" value="False"/>
+    <param name="merged_check" value="False"/>
+    <param name="imu_check" value="False"/>
+    <param name="camera_check" value="False"/>
+    <param name="low_level_check" value="False"/>
+    <param name="battery_check" value="True"/>
+    <param name="SR_check" value="False"/>
+    <param name="obstacle_check" value="True"/>
+    <param name="location_lost_check" value="True"/>
+    <param name="motor_check" value="False"/>
+    <param name="web_check" value="True"/>
+    <param name="lane_check" value="True"/>
+    <param name="estop_check" value="True"/>
+    <param name="bumper_check" value="True"/>
+    <param name="image_check" value="True"/>
+    <param name="obstacle_counter" type = "int" value="1"/>
+
+<!-- if true so error for manual check --> 
+<!--    <param name="estop_msg" value="True"/>
+    <param name="bumper_msg" value="True"/> -->
+
+
+
+<!-- sam's 
+    <param name="threed_check" value="True"/>
+    <param name="twod_front_check" value="False"/>
+    <param name="twod_rear_check" value="False"/>
+    <param name="merged_check" value="False"/>
+    <param name="imu_check" value="False"/>
+    <param name="camera_check" value="False"/>
+    <param name="low_level_check" value="False"/>
+    <param name="battery_check" value="True"/>
+    <param name="SR_check" value="False"/>
+    <param name="obstacle_check" value="True"/>
+    <param name="location_lost_check" value="True"/>
+    <param name="motor_check" value="False"/>
+    <param name="web_check" value="True"/>
+    <param name="lane_check" value="True"/>
+    <param name="estop_check" value="True"/>
+    <param name="bumper_check" value="True"/>
+ -->
+
+  </node>
+
+</launch>

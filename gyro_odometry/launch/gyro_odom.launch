@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="output_topic" default="/gyro/odom"/>
+  <arg name="odom_topic" default="/wheel/odom"/>
+  <arg name="imu_topic" default="/imu/data_raw"/>
+  <arg name="parent_frame" default="odom"/>
+  <arg name="child_frame" default="base_link"/>
+  <arg name="publish_tf" default="true"/>
+
+  <!-- Gyro Odometry -->
+  <node pkg="gyro_odometry" type="xsens_gyro_odometry" name="gyro_odometry">
+    <remap from="/xsens_gyro_odometry" to="$(arg output_topic)"/>
+    <remap from="/odom" to="$(arg odom_topic)"/>
+    <remap from="/mti/sensor/imu" to="$(arg imu_topic)"/>
+    <param name="parent_frame_id" value="$(arg parent_frame)"/>
+    <param name="child_frame_id" value="$(arg child_frame)"/>
+    <param name="publish_tf" value="$(arg publish_tf)"/>
+  </node>
+
+</launch>
